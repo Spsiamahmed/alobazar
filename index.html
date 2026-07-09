@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🥔 আলু বাজার - প্রিমিয়াম</title>
+
+    <!-- React + ReactDOM CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <style>
+        /* ===== গ্লোবাল স্টাইল ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #faf3ed;
+        }
+
+        /* ===== হেডার ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 60px;
+            background: linear-gradient(135deg, #6b3e1f, #8B5A2B);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        .header nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .header nav a:hover {
+            color: #fdd835;
+            transform: scale(1.05);
+        }
+
+        .cart-badge {
+            background: #fdd835;
+            color: #3e2a1b;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 17px;
+            box-shadow: 0 0 15px #fdd83599;
+            transition: 0.3s;
+        }
+
+        .cart-badge:hover {
+            transform: scale(1.1);
+            background: #ffe082;
+        }
+
+        /* ===== হিরো সেকশন ===== */
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 80px 60px;
+            background: linear-gradient(145deg, #f7ede8, #faf3ed);
+            min-height: 80vh;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .hero-left {
+            flex: 1 1 400px;
+        }
+
+        .hero-left h1 {
+            font-size: 58px;
+            color: #3e2a1b;
+            line-height: 1.2;
+        }
+
+        .hero-left .highlight {
+            background: linear-gradient(45deg, #f9a825, #f57f17);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-left p {
+            font-size: 22px;
+            color: #5d4037;
+            margin: 25px 0;
+            font-weight: 300;
+        }
+
+        .hero-btn {
+            padding: 16px 48px;
+            background: linear-gradient(135deg, #f9a825, #f57f17);
+            border: none;
+            border-radius: 60px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.4s;
+            box-shadow: 0 10px 25px #f57f1780;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 18px 35px #f57f17b0;
+        }
+
+        .hero-emoji {
+            font-size: 140px;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 20px 30px #8d6e6380);
+            flex: 1 1 300px;
+            text-align: center;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-25px);
+            }
+        }
+
+        /* ===== ফিচার ===== */
+        .features {
+            padding: 70px 40px;
+            text-align: center;
+            background: #fffaf7;
+        }
+
+        .features h2 {
+            font-size: 40px;
+            color: #3e2a1b;
+            margin-bottom: 40px;
+        }
+
+        .feature-grid {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 35px 30px;
+            border-radius: 30px;
+            width: 220px;
+            box-shadow: 0 10px 30px #d7ccc8;
+            transition: 0.4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px #bcaaa4;
+        }
+
+        .feature-card .icon {
+            font-size: 55px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin: 15px 0 8px;
+            color: #4e342e;
+        }
+
+        /* ===== প্রোডাক্ট ===== */
+        .products {
+            padding: 70px 40px;
+            background: #f5ede8;
+            text-align: center;
+        }
+
+        .products h2 {
+            font-size: 40px;
+            color: #3e2a1b;
+            margin-bottom: 40px;
+        }
+
+        .product-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .product-card {
+            background: #ffffff;
+            padding: 30px 25px 35px;
+            border-radius: 40px;
+            width: 230px;
+            box-shadow: 0 12px 30px #d7ccc8;
+            transition: 0.4s;
+            border: 1px solid #f0e3dd;
+        }
+
+        .product-card:hover {
+            transform: scale(1.04) translateY(-8px);
+            box-shadow: 0 20px 45px #bcaaa4;
+        }
+
+        .product-card .emoji {
+            font-size: 70px;
+        }
+
+        .product-card .name {
+            font-size: 22px;
+            font-weight: 600;
+            color: #3e2a1b;
+            margin: 12px 0 5px;
+        }
+
+        .product-card .price {
+            font-size: 20px;
+            color: #bf6f00;
+            font-weight: 600;
+        }
+
+        .add-btn {
+            margin-top: 14px;
+            padding: 10px 28px;
+            background: linear-gradient(135deg, #43a047, #2e7d32);
+            border: none;
+            border-radius: 60px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 6px 18px #2e7d3270;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 10px 28px #2e7d32b0;
+        }
+
+        /* ===== ফুটার ===== */
+        .footer {
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #4e342e, #3e2a1b);
+            color: #f5ede8;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .footer span {
+            color: #fdd835;
+        }
+
+        /* ===== রেস্পন্সিভ ===== */
+        @media (max-width: 750px) {
+            .header {
+                padding: 15px 25px;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .hero {
+                padding: 40px 25px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-left h1 {
+                font-size: 38px;
+            }
+            .hero-emoji {
+                font-size: 100px;
+            }
+            .feature-grid,
+            .product-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .feature-card,
+            .product-card {
+                width: 85%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script>
+        // ============================================================
+        //  🧠 React Component
+        // ============================================================
+        const { useState } = React;
+
+        function App() {
+            const [cart, setCart] = useState([]);
+
+            const products = [
+                { id: 1, name: 'লাল আলু', price: 40, emoji: '🥔' },
+                { id: 2, name: 'সাদা আলু', price: 30, emoji: '🥔' },
+                { id: 3, name: 'মিষ্টি আলু', price: 50, emoji: '🍠' },
+                { id: 4, name: 'কাঠ আলু', price: 60, emoji: '🥔' },
+            ];
+
+            const addToCart = (product) => {
+                setCart([...cart, product]);
+                alert(`✅ ${product.name} কার্টে যোগ হয়েছে!`);
+            };
+
+            return (
+                <div>
+
+                    {/* ===== HEADER ===== */}
+                    <header className="header">
+                        <h1>🌾 আলু বাজার</h1>
+                        <nav>
+                            <a>হোম</a>
+                            <a>দোকান</a>
+                            <a>যোগাযোগ</a>
+                            <span className="cart-badge">🛒 {cart.length}</span>
+                        </nav>
+                    </header>
+
+                    {/* ===== HERO ===== */}
+                    <section className="hero">
+                        <div className="hero-left">
+                            <h1>
+                                দেশের <span className="highlight">সেরা</span> <br />আলুর আড্ডা
+                            </h1>
+                            <p>🔥 সরাসরি কৃষকদের কাছ থেকে — তাজা, সস্তা ও ১০০% খাঁটি</p>
+                            <button className="hero-btn" onClick={() => alert('🚀 শীঘ্রই আসছে!')}>
+                                এখনই অর্ডার করুন
+                            </button>
+                            <p style={{ marginTop: 25, fontSize: 18, color: '#6d4c41' }}>
+                                ✅ মোট আইটেম: {cart.length}
+                            </p>
+                        </div>
+                        <div className="hero-emoji">🥔</div>
+                    </section>
+
+                    {/* ===== FEATURES ===== */}
+                    <section className="features">
+                        <h2>✨ কেন আমাদের আলু?</h2>
+                        <div className="feature-grid">
+                            <div className="feature-card">
+                                <div className="icon">🌱</div>
+                                <h3>তাজা</h3>
+                                <p>ভোরবেলা তোলা</p>
+                            </div>
+                            <div className="feature-card">
+                                <div className="icon">💰</div>
+                                <h3>সস্তা</h3>
+                                <p>সরাসরি দাম</p>
+                            </div>
+                            <div className="feature-card">
+                                <div className="icon">🚚</div>
+                                <h3>দ্রুত</h3>
+                                <p>২৪ ঘণ্টায় ডেলিভারি</p>
+                            </div>
+                            <div className="feature-card">
+                                <div className="icon">🏅</div>
+                                <h3>খাঁটি</h3>
+                                <p>কোনো মেশানো নয়</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ===== PRODUCTS ===== */}
+                    <section className="products">
+                        <h2>🛍️ আমাদের আলু কালেকশন</h2>
+                        <div className="product-grid">
+                            {products.map((p) => (
+                                <div key={p.id} className="product-card">
+                                    <div className="emoji">{p.emoji}</div>
+                                    <div className="name">{p.name}</div>
+                                    <div className="price">৳{p.price} / কেজি</div>
+                                    <button className="add-btn" onClick={() => addToCart(p)}>
+                                        + কার্টে যোগ
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* ===== FOOTER ===== */}
+                    <footer className="footer">
+                        <p>© ২০২৬ <span>আলু বাজার</span> — মনের মতো আলু, হাতের কাছে 💛</p>
+                    </footer>
+
+                </div>
+            );
+        }
+
+        // রেন্ডার
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+
+</body>
+</html>
